@@ -2,202 +2,111 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CDK Tizimi</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Inter',sans-serif;background:#07070f;color:#e0e0f0;min-height:100vh}
-body::before{content:'';position:fixed;top:0;left:0;right:0;height:300px;background:linear-gradient(180deg,rgba(99,102,241,.07),transparent);pointer-events:none;z-index:0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#07070f;color:#e0e0f0;min-height:100vh}
 
-/* LOGIN */
-#loginPage{position:fixed;inset:0;background:#07070f;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{background:linear-gradient(160deg,#0d0d1f,#0a0a18);border:1px solid rgba(99,102,241,.25);border-radius:24px;padding:40px 32px;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.login-logo{font-size:48px;margin-bottom:16px}
-.login-title{font-size:22px;font-weight:900;background:linear-gradient(135deg,#fff,#888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
-.login-sub{font-size:13px;color:#444;margin-bottom:28px}
-.login-input{width:100%;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#e0e0f0;font-size:16px;outline:none;text-align:center;letter-spacing:4px;font-family:'Inter',sans-serif;transition:border .2s;margin-bottom:12px}
-.login-input:focus{border-color:rgba(99,102,241,.5);background:rgba(99,102,241,.04)}
-.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#6366f1,#a855f7);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(99,102,241,.3);transition:all .2s}
-.login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(99,102,241,.4)}
-.login-btn:active{transform:translateY(0)}
-.login-err{font-size:12px;color:#e94560;margin-top:10px;min-height:18px}
+#loginPage{position:fixed;inset:0;background:#07070f;z-index:1000;display:flex;align-items:center;justify-content:center}
+.lbox{background:#0d0d1f;border:1px solid #333;border-radius:20px;padding:36px 28px;width:320px;text-align:center}
+.lbox h2{font-size:20px;color:#fff;margin-bottom:6px}
+.lbox p{font-size:12px;color:#444;margin-bottom:24px}
+.lbox input{width:100%;padding:12px;background:#111;border:1px solid #222;border-radius:10px;color:#fff;font-size:16px;text-align:center;letter-spacing:4px;outline:none;margin-bottom:12px}
+.lbox button{width:100%;padding:12px;background:#6366f1;border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.lerr{font-size:12px;color:#f87171;margin-top:8px;min-height:16px}
 
-/* MAIN */
-#mainPage{display:none;position:relative;z-index:1}
-.wrap{max-width:1200px;margin:0 auto;padding:24px 16px 60px}
-.header{text-align:center;margin-bottom:32px;padding-top:8px}
-.header-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);border-radius:30px;padding:6px 18px;margin-bottom:14px}
-.header-badge span{font-size:11px;font-weight:700;color:#818cf8;letter-spacing:1px;text-transform:uppercase}
-.header h1{font-size:26px;font-weight:900;background:linear-gradient(135deg,#fff 30%,#666);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
-.header p{font-size:12px;color:#333}
+#mainPage{display:none}
+.wrap{max-width:1300px;margin:0 auto;padding:20px 12px 60px}
+.header{text-align:center;margin-bottom:28px}
+.header h1{font-size:22px;font-weight:900;color:#fff;margin-bottom:4px}
+.header p{font-size:11px;color:#333}
 
-.spinner-wrap{text-align:center;padding:80px;color:#333;font-size:13px}
-.spinner{width:32px;height:32px;border:3px solid rgba(99,102,241,.15);border-top-color:#6366f1;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
-@keyframes spin{to{transform:rotate(360deg)}}
+#app{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:1000px){#app{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){#app{grid-template-columns:1fr}}
 
-#app{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-@media(max-width:900px){#app{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){#app{grid-template-columns:1fr}}
+.card{border-radius:16px;background:#0d0d1f;overflow:hidden;border:1px solid #1a1a2e}
+.card-head{padding:14px;display:flex;align-items:center;justify-content:space-between}
+.card-left{display:flex;align-items:center;gap:10px}
+.icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.cname{font-size:13px;font-weight:800;color:#fff}
+.csub{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.card-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.badge{font-size:11px;font-weight:800;padding:2px 10px;border-radius:20px}
+.addbtn{font-size:10px;font-weight:700;padding:5px 10px;border-radius:7px;border:none;cursor:pointer;font-family:sans-serif}
 
-/* PLAN CARD */
-.plan-card{background:linear-gradient(160deg,#0e0e20,#0a0a18);border-radius:20px;overflow:hidden}
-.plan-header{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 14px;gap:8px}
-.plan-left{display:flex;align-items:center;gap:12px;min-width:0}
-.plan-emoji-wrap{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
-.plan-info{min-width:0}
-.plan-name{font-size:14px;font-weight:800;color:#fff;margin-bottom:2px;white-space:nowrap}
-.plan-sub{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
-.plan-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
-.plan-count-badge{font-size:12px;font-weight:800;padding:3px 12px;border-radius:20px;white-space:nowrap}
-.btn-add-plan{display:flex;align-items:center;gap:5px;padding:7px 13px;border-radius:9px;border:none;font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;white-space:nowrap}
-.btn-add-plan:active{transform:scale(.95)}
+.list{padding:0 10px 12px;display:flex;flex-direction:column;gap:5px}
+.empty{text-align:center;padding:14px;font-size:11px;color:#222;border:1px dashed #1a1a2e;border-radius:8px}
 
-/* CDK LIST */
-.cdk-list{padding:0 12px 14px;display:flex;flex-direction:column;gap:6px}
-.cdk-empty{text-align:center;padding:18px;font-size:12px;color:#252535;border:1px dashed rgba(255,255,255,.05);border-radius:12px}
+.citem{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:9px;padding:8px 10px}
+.ctop{display:flex;align-items:center;gap:6px}
+.ccode{font-family:monospace;font-size:12px;font-weight:700;color:#ccc;flex:1;word-break:break-all;line-height:1.5}
+.cbtns{display:flex;gap:4px;flex-shrink:0}
+.cpbtn,.cdbtn{width:28px;height:28px;border-radius:7px;border:none;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
+.cdate{font-size:9px;color:#2a2a3a;margin-top:4px}
 
-.cdk-item{
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:11px;
-  padding:10px 12px;
-  transition:background .15s
-}
-.cdk-item:hover{background:rgba(255,255,255,.05)}
-.cdk-top{display:flex;align-items:center;gap:8px}
-.cdk-code{
-  font-family:'Courier New',monospace;
-  font-size:12.5px;font-weight:700;
-  color:#d8d8f0;letter-spacing:.8px;
-  flex:1;min-width:0;
-  word-break:break-all;
-  line-height:1.5
-}
-.cdk-btns{display:flex;gap:5px;flex-shrink:0}
-.btn-copy{
-  width:30px;height:30px;
-  border-radius:8px;border:none;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;cursor:pointer;transition:all .2s;flex-shrink:0
-}
-.btn-copy:active{transform:scale(.9)}
-.btn-del{
-  width:30px;height:30px;border-radius:8px;border:none;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;cursor:pointer;transition:all .2s;flex-shrink:0;
-  background:rgba(239,68,68,.08);color:#f87171
-}
-.btn-del:active{transform:scale(.9)}
-.btn-del:hover{background:rgba(239,68,68,.16)}
-.cdk-date{font-size:10px;color:#333;margin-top:5px;padding-left:1px}
+.addform{display:none;margin:0 10px 12px;background:rgba(255,255,255,.02);border:1px solid #1a1a2e;border-radius:10px;padding:10px;flex-direction:column;gap:8px}
+.addform.open{display:flex}
+.addform textarea{background:#0a0a15;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0f0;font-size:12px;padding:8px;font-family:monospace;resize:none;outline:none}
+.fbtns{display:flex;gap:6px}
+.savebtn{flex:1;padding:9px;border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:sans-serif}
+.cancelbtn{padding:9px 12px;background:transparent;border:1px solid #1a1a2e;border-radius:8px;color:#444;font-size:12px;cursor:pointer;font-family:sans-serif}
 
-/* ADD FORM */
-.add-form{display:none;margin:0 12px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:13px;gap:10px;flex-direction:column}
-.add-form.show{display:flex}
-.add-form textarea{width:100%;padding:10px 12px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07);border-radius:10px;color:#e0e0f0;font-size:13px;outline:none;font-family:'Courier New',monospace;letter-spacing:.8px;line-height:1.7;resize:none;transition:border .2s}
-.add-form textarea::placeholder{font-family:'Inter',sans-serif;letter-spacing:0;color:#252535;font-size:12px}
-.form-btns{display:flex;gap:8px}
-.btn-save{flex:1;padding:10px;background:linear-gradient(135deg,#6366f1,#a855f7);border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
-.btn-save:active{opacity:.85}
-.btn-cancel-form{padding:10px 14px;background:transparent;border:1px solid rgba(255,255,255,.07);border-radius:10px;color:#444;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
-.btn-cancel-form:hover{color:#777;border-color:rgba(255,255,255,.15)}
+/* plan colors */
+.go .icon{background:rgba(46,204,113,.15)} .go .csub{color:#2ecc71} .go .badge{background:rgba(46,204,113,.1);color:#2ecc71;border:1px solid rgba(46,204,113,.2)} .go .addbtn{background:rgba(46,204,113,.1);color:#2ecc71} .go .cpbtn{background:rgba(46,204,113,.1);color:#2ecc71} .go .savebtn{background:#2ecc71}
+.plus .icon{background:rgba(59,130,246,.15)} .plus .csub{color:#60a5fa} .plus .badge{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.2)} .plus .addbtn{background:rgba(59,130,246,.1);color:#60a5fa} .plus .cpbtn{background:rgba(59,130,246,.1);color:#60a5fa} .plus .savebtn{background:#3b82f6}
+.gift .icon{background:rgba(236,72,153,.15)} .gift .csub{color:#f472b6} .gift .badge{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.2)} .gift .addbtn{background:rgba(236,72,153,.1);color:#f472b6} .gift .cpbtn{background:rgba(236,72,153,.1);color:#f472b6} .gift .savebtn{background:#ec4899}
+.ygo .icon{background:rgba(234,179,8,.15)} .ygo .csub{color:#fbbf24} .ygo .badge{background:rgba(234,179,8,.1);color:#fbbf24;border:1px solid rgba(234,179,8,.2)} .ygo .addbtn{background:rgba(234,179,8,.1);color:#fbbf24} .ygo .cpbtn{background:rgba(234,179,8,.1);color:#fbbf24} .ygo .savebtn{background:#d97706}
+.yplus .icon{background:rgba(249,115,22,.15)} .yplus .csub{color:#fb923c} .yplus .badge{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.2)} .yplus .addbtn{background:rgba(249,115,22,.1);color:#fb923c} .yplus .cpbtn{background:rgba(249,115,22,.1);color:#fb923c} .yplus .savebtn{background:#f97316}
+.cdbtn{background:rgba(239,68,68,.08);color:#f87171}
 
-/* PLAN COLORS */
-.card-plus{border:1px solid rgba(59,130,246,.18)}
-.card-plus .plan-emoji-wrap{background:linear-gradient(135deg,rgba(59,130,246,.25),rgba(99,102,241,.12))}
-.card-plus .plan-sub,.card-plus .cdk-date{color:#4a7abf}
-.card-plus .plan-count-badge{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.25)}
-.card-plus .btn-add-plan{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.25)}
-.card-plus .btn-copy{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.15)}
-.card-plus .btn-save{background:linear-gradient(135deg,#3b82f6,#6366f1)}
-.card-go{border:1px solid rgba(46,204,113,.18)}
-.card-go .plan-emoji-wrap{background:linear-gradient(135deg,rgba(46,204,113,.25),rgba(16,185,129,.12))}
-.card-go .plan-sub,.card-go .cdk-date{color:#166a45}
-.card-go .plan-count-badge{background:rgba(46,204,113,.12);color:#2ecc71;border:1px solid rgba(46,204,113,.25)}
-.card-go .btn-add-plan{background:rgba(46,204,113,.1);color:#2ecc71;border:1px solid rgba(46,204,113,.25)}
-.card-go .btn-copy{background:rgba(46,204,113,.1);color:#2ecc71;border:1px solid rgba(46,204,113,.15)}
-.card-go .btn-save{background:linear-gradient(135deg,#2ecc71,#16a34a)}
-
-.card-gift{border:1px solid rgba(236,72,153,.18)}
-.card-gift .plan-emoji-wrap{background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(168,85,247,.12))}
-.card-gift .plan-sub,.card-gift .cdk-date{color:#8a2060}
-.card-gift .plan-count-badge{background:rgba(236,72,153,.12);color:#f472b6;border:1px solid rgba(236,72,153,.25)}
-.card-gift .btn-add-plan{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.25)}
-.card-gift .btn-copy{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.15)}
-.card-gift .btn-save{background:linear-gradient(135deg,#ec4899,#a855f7)}
-
-
-.card-ygo{border:1px solid rgba(234,179,8,.18)}
-.card-ygo .plan-emoji-wrap{background:linear-gradient(135deg,rgba(234,179,8,.25),rgba(249,115,22,.12))}
-.card-ygo .plan-sub,.card-ygo .cdk-date{color:#9a7a05}
-.card-ygo .plan-count-badge{background:rgba(234,179,8,.12);color:#fbbf24;border:1px solid rgba(234,179,8,.25)}
-.card-ygo .btn-add-plan{background:rgba(234,179,8,.1);color:#fbbf24;border:1px solid rgba(234,179,8,.25)}
-.card-ygo .btn-copy{background:rgba(234,179,8,.1);color:#fbbf24;border:1px solid rgba(234,179,8,.15)}
-.card-ygo .btn-save{background:linear-gradient(135deg,#d97706,#f59e0b)}
-
-.card-yplus{border:1px solid rgba(249,115,22,.18)}
-.card-yplus .plan-emoji-wrap{background:linear-gradient(135deg,rgba(249,115,22,.25),rgba(239,68,68,.12))}
-.card-yplus .plan-sub,.card-yplus .cdk-date{color:#9a5010}
-.card-yplus .plan-count-badge{background:rgba(249,115,22,.12);color:#fb923c;border:1px solid rgba(249,115,22,.25)}
-.card-yplus .btn-add-plan{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.25)}
-.card-yplus .btn-copy{background:rgba(249,115,22,.1);color:#fb923c;border:1px solid rgba(249,115,22,.15)}
-.card-yplus .btn-save{background:linear-gradient(135deg,#f97316,#ef4444)}
-
-/* CONFIRM */
-.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:900;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:16px}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:900;align-items:center;justify-content:center;padding:16px}
 .ov.show{display:flex}
-.cbox{background:linear-gradient(160deg,#0e0e20,#0a0a18);border:1px solid rgba(239,68,68,.25);border-radius:22px;padding:30px 24px;width:100%;max-width:310px;text-align:center;animation:pop .25s cubic-bezier(.2,.8,.2,1);box-shadow:0 20px 60px rgba(0,0,0,.6)}
-@keyframes pop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
-.cbox-icon{font-size:40px;margin-bottom:12px}
-.cbox-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:8px}
-.cbox-code{font-family:'Courier New',monospace;font-size:11px;color:#f87171;font-weight:700;letter-spacing:.5px;margin-bottom:20px;padding:10px;background:rgba(239,68,68,.07);border-radius:10px;word-break:break-all;line-height:1.6}
-.cbox-btns{display:flex;gap:9px}
-.cbtn-yes{flex:1;padding:12px;background:linear-gradient(135deg,#e74c3c,#c0392b);border:none;border-radius:11px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
-.cbtn-yes:active{opacity:.85}
-.cbtn-no{flex:1;padding:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:11px;color:#666;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
-.cbtn-no:active{background:rgba(255,255,255,.1)}
+.cbox{background:#0d0d1f;border:1px solid rgba(239,68,68,.2);border-radius:18px;padding:26px 20px;width:280px;text-align:center}
+.cbox h3{font-size:15px;color:#fff;margin-bottom:8px}
+.cbox p{font-family:monospace;font-size:11px;color:#f87171;background:rgba(239,68,68,.06);padding:8px;border-radius:7px;margin-bottom:16px;word-break:break-all;line-height:1.5}
+.cbox-btns{display:flex;gap:7px}
+.cbox-btns button:first-child{flex:1;padding:10px;background:#e74c3c;border:none;border-radius:9px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.cbox-btns button:last-child{flex:1;padding:10px;background:rgba(255,255,255,.05);border:1px solid #222;border-radius:9px;color:#555;font-size:13px;cursor:pointer}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#0e0e20;border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:12px 22px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s cubic-bezier(.2,.8,.2,1);white-space:nowrap;pointer-events:none;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:#111;border:1px solid #222;border-radius:10px;padding:10px 18px;font-size:12px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-.toast.ok{border-color:rgba(46,204,113,.35);color:#2ecc71}
-.toast.er{border-color:rgba(239,68,68,.35);color:#f87171}
+.toast.ok{border-color:rgba(46,204,113,.3);color:#2ecc71}
+.toast.er{border-color:rgba(239,68,68,.3);color:#f87171}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginPage">
-  <div class="login-box">
-    <div class="login-logo">🔑</div>
-    <div class="login-title">CDK Tizimi</div>
-    <div class="login-sub">Kirish uchun parol kiriting</div>
-    <input type="password" class="login-input" id="loginInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" onclick="doLogin()">Kirish →</button>
-    <div class="login-err" id="loginErr"></div>
+  <div class="lbox">
+    <div style="font-size:40px;margin-bottom:12px">🔑</div>
+    <h2>CDK Tizimi</h2>
+    <p>Kirish uchun parol kiriting</p>
+    <input type="password" id="pinput" placeholder="••••••" onkeydown="if(event.key==='Enter')login()">
+    <button onclick="login()">Kirish →</button>
+    <div class="lerr" id="lerr"></div>
   </div>
 </div>
 
-<!-- MAIN -->
 <div id="mainPage">
   <div class="wrap">
     <div class="header">
-      <div class="header-badge">🔑 <span>CDK Tizimi</span></div>
-      <h1>Kodlar bazasi</h1>
+      <h1>🔑 CDK Tizimi</h1>
       <p>Real-time sinxronlangan • Firebase</p>
     </div>
-    <div id="app"><div class="spinner-wrap"><div class="spinner"></div>Yuklanmoqda...</div></div>
+    <div id="app"><div style="text-align:center;padding:60px;color:#333">Yuklanmoqda...</div></div>
   </div>
 </div>
 
-<!-- CONFIRM -->
-<div class="ov" id="confirmOv">
+<div class="ov" id="ov">
   <div class="cbox">
-    <div class="cbox-icon">🗑️</div>
-    <div class="cbox-title">O'chirasizmi?</div>
-    <div class="cbox-code" id="confirmCode"></div>
+    <div style="font-size:32px;margin-bottom:10px">🗑️</div>
+    <h3>O'chirasizmi?</h3>
+    <p id="delcode"></p>
     <div class="cbox-btns">
-      <button class="cbtn-yes" onclick="confirmDelete()">Ha, o'chirish</button>
-      <button class="cbtn-no" onclick="closeConfirm()">Bekor</button>
+      <button onclick="doDelete()">Ha, o'chirish</button>
+      <button onclick="closeOv()">Bekor</button>
     </div>
   </div>
 </div>
@@ -209,174 +118,139 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getDatabase, ref, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const PASS = "1234";
-const app  = initializeApp({ databaseURL: "https://cdk-tizimi-default-rtdb.firebaseio.com" });
-const db   = getDatabase(app);
+const db = getDatabase(initializeApp({ databaseURL: "https://cdk-tizimi-default-rtdb.firebaseio.com" }));
 
 const PLANS = [
-  {key:'plus',  name:'1 Oylik Plus',  sub:'Oylik · Plus',  icon:'⭐', cls:'card-plus'},
-  {key:'ygo',   name:'1 Yillik Go',   sub:'Yillik · Go',   icon:'🌟', cls:'card-ygo'},
-  {key:'yplus', name:'1 Yillik Plus', sub:'Yillik · Plus', icon:'🏆', cls:'card-yplus'},
-  {key:'gift',  name:'1 Oylik Gift',  sub:'Oylik · Gift',  icon:'🎁', cls:'card-gift'},
+  {key:'go',    name:'1 Oylik Go',    sub:'OYLIK · GO',    icon:'🚀', cls:'go'},
+  {key:'plus',  name:'1 Oylik Plus',  sub:'OYLIK · PLUS',  icon:'⭐', cls:'plus'},
+  {key:'gift',  name:'1 Oylik Gift',  sub:'OYLIK · GIFT',  icon:'🎁', cls:'gift'},
+  {key:'ygo',   name:'1 Yillik Go',   sub:'YILLIK · GO',   icon:'🌟', cls:'ygo'},
+  {key:'yplus', name:'1 Yillik Plus', sub:'YILLIK · PLUS', icon:'🏆', cls:'yplus'},
 ];
 
-var openForm   = null;
-var pendingId  = null;
-var pendingKey = null;
-var allData    = {go:{}, plus:{}, gift:{}, ygo:{}, yplus:{}};
-var loaded     = {go:false, plus:false, gift:false, ygo:false, yplus:false};
+var data = {go:{}, plus:{}, gift:{}, ygo:{}, yplus:{}};
+var ready = {go:false, plus:false, gift:false, ygo:false, yplus:false};
+var openForm = null;
+var delId = null, delKey = null;
 
-window.doLogin = function() {
-  var val = document.getElementById('loginInput').value;
-  if (val === PASS) {
+window.login = function(){
+  var v = document.getElementById('pinput').value;
+  if(v === PASS){
     document.getElementById('loginPage').style.display = 'none';
-    document.getElementById('mainPage').style.display  = 'block';
-    startListening();
+    document.getElementById('mainPage').style.display = 'block';
+    startSync();
   } else {
-    document.getElementById('loginErr').textContent = '❌ Parol noto\'g\'ri!';
-    document.getElementById('loginInput').value = '';
-    setTimeout(function(){ document.getElementById('loginErr').textContent=''; }, 2000);
+    document.getElementById('lerr').textContent = '❌ Parol noto\'g\'ri!';
+    document.getElementById('pinput').value = '';
+    setTimeout(function(){ document.getElementById('lerr').textContent=''; }, 2000);
   }
 };
 
-function startListening() {
-  PLANS.forEach(function(p) {
-    onValue(ref(db, 'cdks/'+p.key), function(snap) {
-      allData[p.key] = snap.val() || {};
-      loaded[p.key]  = true;
-      if (loaded.go && loaded.plus && loaded.gift && loaded.ygo && loaded.yplus) renderAll();
+function startSync(){
+  PLANS.forEach(function(p){
+    onValue(ref(db,'cdks/'+p.key), function(snap){
+      data[p.key] = snap.val() || {};
+      ready[p.key] = true;
+      if(PLANS.every(function(x){ return ready[x.key]; })) render();
     });
   });
 }
 
-function formatDate(ts) {
-  if (!ts) return '';
-  var d = new Date(ts);
-  var dd = String(d.getDate()).padStart(2,'0');
-  var mm = String(d.getMonth()+1).padStart(2,'0');
-  var yy = d.getFullYear();
-  var hh = String(d.getHours()).padStart(2,'0');
-  var min= String(d.getMinutes()).padStart(2,'0');
-  return dd+'.'+mm+'.'+yy+' '+hh+':'+min;
+function fmtDate(ts){
+  if(!ts) return '';
+  var d=new Date(ts);
+  return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
 }
 
-function renderAll() {
-  var html = '';
-  PLANS.forEach(function(p){ html += renderCard(p); });
-  document.getElementById('app').innerHTML = html;
+function render(){
+  document.getElementById('app').innerHTML = PLANS.map(function(p){ return cardHTML(p); }).join('');
 }
 
-function renderCard(p) {
-  var items  = allData[p.key];
-  var keys   = Object.keys(items);
+function cardHTML(p){
+  var items = data[p.key];
+  var keys = Object.keys(items);
   var isOpen = openForm === p.key;
 
-  var listHTML = '';
-  if (keys.length === 0) {
-    listHTML = '<div class="cdk-empty">Hozircha CDK yo\'q</div>';
-  } else {
-    keys.forEach(function(k) {
-      var it   = items[k];
-      var code = it.code;
-      var date = formatDate(it.addedAt);
-      var sc   = code.replace(/'/g,"\\'");
-      listHTML +=
-        '<div class="cdk-item">'
-        +'<div class="cdk-top">'
-        +'<span class="cdk-code">'+code+'</span>'
-        +'<div class="cdk-btns">'
-        +'<button class="btn-copy" onclick="copyCode(\''+sc+'\',this)" title="Nusxa">📋</button>'
-        +'<button class="btn-del"  onclick="askDel(\''+k+'\',\''+p.key+'\',\''+sc+'\')" title="O\'chirish">🗑</button>'
-        +'</div></div>'
-        +(date?'<div class="cdk-date">📅 '+date+'</div>':'')
-        +'</div>';
-    });
-  }
+  var list = keys.length === 0
+    ? '<div class="empty">CDK yo\'q</div>'
+    : keys.map(function(k){
+        var code = items[k].code;
+        var date = fmtDate(items[k].addedAt);
+        var sc = code.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        return '<div class="citem">'
+          +'<div class="ctop">'
+          +'<span class="ccode">'+code+'</span>'
+          +'<div class="cbtns">'
+          +'<button class="cpbtn" onclick="cp(\''+sc+'\',this)">📋</button>'
+          +'<button class="cdbtn" onclick="askDel(\''+k+'\',\''+p.key+'\',\''+sc+'\')">🗑</button>'
+          +'</div></div>'
+          +(date?'<div class="cdate">📅 '+date+'</div>':'')
+          +'</div>';
+      }).join('');
 
-  var formHTML =
-    '<div class="add-form'+(isOpen?' show':'')+'">'
-    +'<textarea id="inp-'+p.key+'" rows="5" placeholder="Har qatorga 1 ta CDK:\nXXXX-XXXX-XXXX\nXXXX-XXXX-XXXX"></textarea>'
-    +'<div class="form-btns">'
-    +'<button class="btn-save" onclick="saveCDK(\''+p.key+'\')">✅ Saqlash</button>'
-    +'<button class="btn-cancel-form" onclick="closeFormF()">✕ Bekor</button>'
+  var form = '<div class="addform'+(isOpen?' open':'')+'">'
+    +'<textarea id="ta-'+p.key+'" rows="5" placeholder="Har qatorga 1 ta CDK"></textarea>'
+    +'<div class="fbtns">'
+    +'<button class="savebtn" onclick="save(\''+p.key+'\')">✅ Saqlash</button>'
+    +'<button class="cancelbtn" onclick="closeForm()">✕</button>'
     +'</div></div>';
 
-  return '<div class="plan-card '+p.cls+'">'
-    +'<div class="plan-header">'
-    +'<div class="plan-left">'
-    +'<div class="plan-emoji-wrap">'+p.icon+'</div>'
-    +'<div class="plan-info"><div class="plan-name">'+p.name+'</div><div class="plan-sub">'+p.sub+'</div></div>'
-    +'</div>'
-    +'<div class="plan-right">'
-    +'<span class="plan-count-badge">'+keys.length+' ta</span>'
-    +'<button class="btn-add-plan" onclick="openFormF(\''+p.key+'\')">➕ Qo\'shish</button>'
+  return '<div class="card '+p.cls+'">'
+    +'<div class="card-head">'
+    +'<div class="card-left"><div class="icon">'+p.icon+'</div>'
+    +'<div><div class="cname">'+p.name+'</div><div class="csub">'+p.sub+'</div></div></div>'
+    +'<div class="card-right">'
+    +'<span class="badge">'+keys.length+' ta</span>'
+    +'<button class="addbtn" onclick="openF(\''+p.key+'\')">➕ Qo\'sh</button>'
     +'</div></div>'
-    +'<div class="cdk-list">'+listHTML+'</div>'
-    +formHTML+'</div>';
+    +'<div class="list">'+list+'</div>'
+    +form+'</div>';
 }
 
-window.openFormF = function(key) {
-  openForm = key; renderAll();
-  var el = document.getElementById('inp-'+key);
-  if (el) el.focus();
-};
-window.closeFormF = function() { openForm = null; renderAll(); };
+window.openF = function(key){ openForm=key; render(); var el=document.getElementById('ta-'+key); if(el)el.focus(); };
+window.closeForm = function(){ openForm=null; render(); };
 
-window.saveCDK = function(key) {
-  var el  = document.getElementById('inp-'+key);
-  var raw = el ? el.value.trim() : '';
-  if (!raw) { showToast('❌ CDK kiriting!','er'); return; }
-  var lines = raw.split('\n').map(function(l){return l.trim();}).filter(function(l){return l.length>0;});
+window.save = function(key){
+  var el=document.getElementById('ta-'+key);
+  var raw=el?el.value.trim():'';
+  if(!raw){ toast('❌ CDK kiriting!','er'); return; }
+  var lines=raw.split('\n').map(function(l){return l.trim();}).filter(function(l){return l.length>0;});
   var added=0, skip=0;
   lines.forEach(function(code){
-    var exists = Object.values(allData[key]).find(function(v){return v.code===code;});
-    if (exists) { skip++; return; }
-    push(ref(db,'cdks/'+key), {code:code, addedAt: Date.now()});
+    var ex=Object.values(data[key]).find(function(v){return v.code===code;});
+    if(ex){skip++;return;}
+    push(ref(db,'cdks/'+key),{code:code,addedAt:Date.now()});
     added++;
   });
-  openForm = null;
-  if (added>0&&skip===0) showToast('✅ '+added+' ta CDK qo\'shildi!','ok');
-  else if (added>0) showToast('✅ '+added+' ta qo\'shildi, '+skip+' ta takror','ok');
-  else showToast('❌ Barchasi allaqachon bor!','er');
+  openForm=null;
+  if(added>0&&skip===0) toast('✅ '+added+' ta qo\'shildi!','ok');
+  else if(added>0) toast('✅ '+added+' ta qo\'shildi, '+skip+' takror','ok');
+  else toast('❌ Barchasi allaqachon bor!','er');
 };
 
-window.askDel = function(fbKey, planKey, code) {
-  pendingId=fbKey; pendingKey=planKey;
-  document.getElementById('confirmCode').textContent = code;
-  document.getElementById('confirmOv').classList.add('show');
+window.askDel = function(id,key,code){
+  delId=id; delKey=key;
+  document.getElementById('delcode').textContent=code;
+  document.getElementById('ov').classList.add('show');
 };
-window.confirmDelete = function() {
-  if (!pendingId) return;
-  remove(ref(db,'cdks/'+pendingKey+'/'+pendingId));
-  closeConfirm();
-  showToast('🗑 O\'chirildi','ok');
+window.doDelete = function(){
+  if(!delId)return;
+  remove(ref(db,'cdks/'+delKey+'/'+delId));
+  closeOv(); toast('🗑 O\'chirildi','ok');
 };
-window.closeConfirm = function() {
-  pendingId=null; pendingKey=null;
-  document.getElementById('confirmOv').classList.remove('show');
+window.closeOv = function(){
+  delId=null; delKey=null;
+  document.getElementById('ov').classList.remove('show');
 };
 
-window.copyCode = function(code, btn) {
-  var done = function(){
-    btn.textContent='✅';
-    setTimeout(function(){btn.textContent='📋';},2000);
-    showToast('✅ Nusxalandi!','ok');
-  };
-  if (navigator.clipboard&&navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(code).then(done).catch(function(){fallback(code);done();});
-  } else { fallback(code); done(); }
+window.cp = function(code,btn){
+  var done=function(){btn.textContent='✅';setTimeout(function(){btn.textContent='📋';},2000);toast('✅ Nusxalandi!','ok');};
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(code).then(done).catch(function(){fb(code);done();});
+  } else {fb(code);done();}
 };
-function fallback(txt){
-  var t=document.createElement('textarea');
-  t.value=txt;t.style.cssText='position:fixed;opacity:0';
-  document.body.appendChild(t);t.select();
-  try{document.execCommand('copy');}catch(e){}
-  document.body.removeChild(t);
-}
-function showToast(msg,type){
-  var t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast '+(type||'ok')+' show';
-  setTimeout(function(){t.classList.remove('show');},2500);
-}
+function fb(t){var x=document.createElement('textarea');x.value=t;x.style.cssText='position:fixed;opacity:0';document.body.appendChild(x);x.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(x);}
+function toast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(type||'ok')+' show';setTimeout(function(){t.classList.remove('show');},2500);}
 </script>
 </body>
 </html>
