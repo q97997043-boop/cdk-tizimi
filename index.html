@@ -36,8 +36,8 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:300px;backgro
 .spinner{width:32px;height:32px;border:3px solid rgba(99,102,241,.15);border-top-color:#6366f1;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-#app{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:800px){#app{grid-template-columns:1fr}}
+#app{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){#app{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){#app{grid-template-columns:1fr}}
 
 /* PLAN CARD */
 .plan-card{background:linear-gradient(160deg,#0e0e20,#0a0a18);border-radius:20px;overflow:hidden}
@@ -110,6 +110,22 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:300px;backgro
 .card-plus .btn-add-plan{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.25)}
 .card-plus .btn-copy{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.15)}
 .card-plus .btn-save{background:linear-gradient(135deg,#3b82f6,#6366f1)}
+.card-go{border:1px solid rgba(46,204,113,.18)}
+.card-go .plan-emoji-wrap{background:linear-gradient(135deg,rgba(46,204,113,.25),rgba(16,185,129,.12))}
+.card-go .plan-sub,.card-go .cdk-date{color:#166a45}
+.card-go .plan-count-badge{background:rgba(46,204,113,.12);color:#2ecc71;border:1px solid rgba(46,204,113,.25)}
+.card-go .btn-add-plan{background:rgba(46,204,113,.1);color:#2ecc71;border:1px solid rgba(46,204,113,.25)}
+.card-go .btn-copy{background:rgba(46,204,113,.1);color:#2ecc71;border:1px solid rgba(46,204,113,.15)}
+.card-go .btn-save{background:linear-gradient(135deg,#2ecc71,#16a34a)}
+
+.card-gift{border:1px solid rgba(236,72,153,.18)}
+.card-gift .plan-emoji-wrap{background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(168,85,247,.12))}
+.card-gift .plan-sub,.card-gift .cdk-date{color:#8a2060}
+.card-gift .plan-count-badge{background:rgba(236,72,153,.12);color:#f472b6;border:1px solid rgba(236,72,153,.25)}
+.card-gift .btn-add-plan{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.25)}
+.card-gift .btn-copy{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.15)}
+.card-gift .btn-save{background:linear-gradient(135deg,#ec4899,#a855f7)}
+
 
 .card-ygo{border:1px solid rgba(234,179,8,.18)}
 .card-ygo .plan-emoji-wrap{background:linear-gradient(135deg,rgba(234,179,8,.25),rgba(249,115,22,.12))}
@@ -200,13 +216,14 @@ const PLANS = [
   {key:'plus',  name:'1 Oylik Plus',  sub:'Oylik · Plus',  icon:'⭐', cls:'card-plus'},
   {key:'ygo',   name:'1 Yillik Go',   sub:'Yillik · Go',   icon:'🌟', cls:'card-ygo'},
   {key:'yplus', name:'1 Yillik Plus', sub:'Yillik · Plus', icon:'🏆', cls:'card-yplus'},
+  {key:'gift',  name:'1 Oylik Gift',  sub:'Oylik · Gift',  icon:'🎁', cls:'card-gift'},
 ];
 
 var openForm   = null;
 var pendingId  = null;
 var pendingKey = null;
-var allData    = {plus:{}, ygo:{}, yplus:{}};
-var loaded     = {plus:false, ygo:false, yplus:false};
+var allData    = {plus:{}, ygo:{}, yplus:{}, gift:{}};
+var loaded     = {plus:false, ygo:false, yplus:false, gift:false};
 
 window.doLogin = function() {
   var val = document.getElementById('loginInput').value;
@@ -226,7 +243,7 @@ function startListening() {
     onValue(ref(db, 'cdks/'+p.key), function(snap) {
       allData[p.key] = snap.val() || {};
       loaded[p.key]  = true;
-      if (loaded.plus && loaded.ygo && loaded.yplus) renderAll();
+      if (loaded.plus && loaded.ygo && loaded.yplus && loaded.gift) renderAll();
     });
   });
 }
